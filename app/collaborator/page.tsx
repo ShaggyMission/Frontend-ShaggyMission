@@ -131,35 +131,47 @@ export default function CollaboratorPage() {
         )
       case "donate":
         return (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold text-black mb-4">Support Our Mission</h2>
-              <p className="text-black/80 text-lg">Your donation helps us care for animals in need</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {[25, 50, 100].map((amount) => (
-                <Card
-                  key={amount}
-                  className="text-center hover:shadow-lg transition-shadow border border-orange-300 rounded-lg"
-                >
-                  <CardHeader>
-                    <CardTitle className="text-2xl text-orange-600 font-extrabold">${amount}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-black/70 mb-4">
-                      {amount === 25 && "Provides food for a pet for one week"}
-                      {amount === 50 && "Covers medical checkup for one animal"}
-                      {amount === 100 && "Sponsors a pet's care for one month"}
-                    </p>
-                    <Button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-black font-semibold transition-colors duration-200">
-                      Donate ${amount}
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )
+         <div className="space-y-6">
+           <div className="text-center">
+             <h2 className="text-3xl font-bold text-black mb-4">Support Our Mission</h2>
+             <p className="text-black/80 text-lg">Your donation helps us care for animals in need</p>
+           </div>
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+             {[25, 50, 100].map((amount) => {
+              let imageSrc = ""
+              if (amount === 25) imageSrc = "/images/donation-25.jpg"
+              if (amount === 50) imageSrc = "/images/donation-50.jpg"
+              if (amount === 100) imageSrc = "/images/donation-100.jpg"
+
+              return (
+               <Card
+                key={amount}
+                className="text-center hover:shadow-lg transition-shadow border border-orange-300 rounded-lg"
+               >
+                <CardHeader>
+                  <img
+                    src={imageSrc}
+                    alt={`Donation tier ${amount}`}
+                    className="mx-auto w-24 h-24 object-contain mb-4"
+                  />
+                  <CardTitle className="text-2xl text-orange-600 font-extrabold">${amount}</CardTitle>
+               </CardHeader>
+               <CardContent>
+                <p className="text-black/70 mb-4">
+                  {amount === 25 && "Provides food for a pet for one week"}
+                  {amount === 50 && "Covers medical checkup for one animal"}
+                  {amount === 100 && "Sponsors a pet's care for one month"}
+                </p>
+                <Button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-black font-semibold transition-colors duration-200">
+                  Donate ${amount}
+                </Button>
+              </CardContent>
+            </Card>
+          )
+        })}
+      </div>
+    </div>
+  )
       case "register":
         return (
           <div className="space-y-6">
