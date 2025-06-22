@@ -59,7 +59,6 @@ export default function RegisterForm() {
       if (response.ok) {
         setMessage({ type: "success", text: data.message || "User registered successfully!" })
 
-        // Store user data
         localStorage.setItem(
           "user",
           JSON.stringify({
@@ -70,7 +69,6 @@ export default function RegisterForm() {
           }),
         )
 
-        // Redirect to collaborator page after successful registration
         setTimeout(() => {
           router.push("/collaborator")
         }, 2000)
@@ -85,20 +83,20 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-pink-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-orange-100 p-4">
       <Card className="w-full max-w-md shadow-xl border-0">
         <CardHeader className="space-y-1">
           <div className="flex items-center justify-between mb-4">
-            <Link href="/" className="text-gray-500 hover:text-gray-700 transition-colors">
+            <Link href="/" className="text-orange-500 hover:text-orange-700 transition-colors">
               <ArrowLeft className="h-6 w-6" />
             </Link>
-            <div className="mx-auto w-16 h-16 bg-gradient-to-r from-orange-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+            <div className="mx-auto w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center shadow-lg">
               <Heart className="h-8 w-8 text-white" fill="currentColor" />
             </div>
             <div className="w-6"></div>
           </div>
-          <CardTitle className="text-2xl font-bold text-center text-gray-800">Join Shaggy Mission</CardTitle>
-          <CardDescription className="text-center text-gray-600">
+          <CardTitle className="text-2xl font-bold text-center text-orange-800">Join Shaggy Mission</CardTitle>
+          <CardDescription className="text-center text-orange-600">
             Create your account to help rescue animals
           </CardDescription>
         </CardHeader>
@@ -122,7 +120,7 @@ export default function RegisterForm() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName" className="text-gray-700 font-medium">
+                <Label htmlFor="firstName" className="text-orange-700 font-medium">
                   First Name
                 </Label>
                 <Input
@@ -134,11 +132,11 @@ export default function RegisterForm() {
                   onChange={handleInputChange}
                   required
                   disabled={isLoading}
-                  className="border-gray-300 focus:border-orange-500 focus:ring-orange-500"
+                  className="border-orange-300 focus:border-orange-500 focus:ring-orange-500"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName" className="text-gray-700 font-medium">
+                <Label htmlFor="lastName" className="text-orange-700 font-medium">
                   Last Name
                 </Label>
                 <Input
@@ -150,13 +148,13 @@ export default function RegisterForm() {
                   onChange={handleInputChange}
                   required
                   disabled={isLoading}
-                  className="border-gray-300 focus:border-orange-500 focus:ring-orange-500"
+                  className="border-orange-300 focus:border-orange-500 focus:ring-orange-500"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-gray-700 font-medium">
+              <Label htmlFor="email" className="text-orange-700 font-medium">
                 Email
               </Label>
               <Input
@@ -168,12 +166,12 @@ export default function RegisterForm() {
                 onChange={handleInputChange}
                 required
                 disabled={isLoading}
-                className="border-gray-300 focus:border-orange-500 focus:ring-orange-500"
+                className="border-orange-300 focus:border-orange-500 focus:ring-orange-500"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-gray-700 font-medium">
+              <Label htmlFor="password" className="text-orange-700 font-medium">
                 Password
               </Label>
               <Input
@@ -185,12 +183,12 @@ export default function RegisterForm() {
                 onChange={handleInputChange}
                 required
                 disabled={isLoading}
-                className="border-gray-300 focus:border-orange-500 focus:ring-orange-500"
+                className="border-orange-300 focus:border-orange-500 focus:ring-orange-500"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phone" className="text-gray-700 font-medium">
+              <Label htmlFor="phone" className="text-orange-700 font-medium">
                 Phone
               </Label>
               <Input
@@ -202,7 +200,7 @@ export default function RegisterForm() {
                 onChange={handleInputChange}
                 required
                 disabled={isLoading}
-                className="border-gray-300 focus:border-orange-500 focus:ring-orange-500"
+                className="border-orange-300 focus:border-orange-500 focus:ring-orange-500"
               />
             </div>
           </CardContent>
@@ -210,7 +208,7 @@ export default function RegisterForm() {
           <CardFooter className="flex flex-col space-y-4">
             <Button
               type="submit"
-              className="w-full h-12 bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-semibold shadow-lg"
+              className="w-full h-12 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold shadow-lg"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -223,9 +221,9 @@ export default function RegisterForm() {
               )}
             </Button>
 
-            <div className="text-center text-gray-600">
+            <div className="text-center text-orange-600">
               Already have an account?{" "}
-              <Link href="/" className="text-orange-600 hover:text-orange-800 font-semibold transition-colors">
+              <Link href="/" className="text-orange-700 hover:text-orange-800 font-semibold transition-colors">
                 Sign In
               </Link>
             </div>
