@@ -12,17 +12,13 @@ import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Heart, ArrowLeft } from "lucide-react"
 
-export default function RegisterPage() {
+export default function LoginPage() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
-    phone: "",
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
-  const [success, setSuccess] = useState(false)
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,22 +27,23 @@ export default function RegisterPage() {
     setError("")
 
     try {
-      const response = await fetch("http://34.232.173.120:3010/user/register", {
+      const response = await fetch("http://34.232.173.120:3002/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(formData),
       })
 
       if (response.ok) {
-        setSuccess(true)
-        setTimeout(() => {
-          router.push("/login")
-        }, 2000)
+        const data = await response.json()
+        // Store user info in localStorage for client-side access
+        localStorage.setItem("userId", data.userId)
+        router.push("/dashboard")
       } else {
         const errorData = await response.json()
-        setError(errorData.message || "Error registering user")
+        setError(errorData.message || "Error signing in")
       }
     } catch (err) {
       setError("Connection error. Please try again.")
@@ -60,22 +57,6 @@ export default function RegisterPage() {
       ...formData,
       [e.target.name]: e.target.value,
     })
-  }
-
-  if (success) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <div className="bg-green-500 rounded-full p-3 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-              <Heart className="h-8 w-8 text-white" />
-            </div>
-            <CardTitle className="text-green-600">Registration Successful!</CardTitle>
-            <CardDescription>Your account has been created. You will be redirected to login...</CardDescription>
-          </CardHeader>
-        </Card>
-      </div>
-    )
   }
 
   return (
@@ -95,36 +76,11 @@ export default function RegisterPage() {
             <div className="bg-orange-500 rounded-full p-3 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
               <Heart className="h-8 w-8 text-white" />
             </div>
-            <CardTitle>Create Account</CardTitle>
-            <CardDescription>Join Shaggy Mission and help find homes for pets</CardDescription>
+            <CardTitle>Sign In</CardTitle>
+            <CardDescription>Access your Shaggy Mission account</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName">First Name</Label>
-                  <Input
-                    id="firstName"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    required
-                    disabled={loading}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName">Last Name</Label>
-                  <Input
-                    id="lastName"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    required
-                    disabled={loading}
-                  />
-                </div>
-              </div>
-
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -132,19 +88,6 @@ export default function RegisterPage() {
                   name="email"
                   type="email"
                   value={formData.email}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone</Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
                   onChange={handleChange}
                   required
                   disabled={loading}
@@ -171,15 +114,20 @@ export default function RegisterPage() {
               )}
 
               <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600" disabled={loading}>
-                {loading ? "Creating Account..." : "Create Account"}
+                {loading ? "Signing In..." : "Sign In"}
               </Button>
             </form>
 
-            <div className="mt-6 text-center">
+            <div className="mt-6 text-center space-y-2">
               <p className="text-sm text-gray-600">
-                Already have an account?{" "}
-                <Link href="/login" className="text-orange-600 hover:text-orange-700 font-medium">
-                  Sign in
+                <Link href="/forgot-password" className="text-orange-600 hover:text-orange-700 font-medium">
+                  Forgot your password?
+                </Link>
+              </p>
+              <p className="text-sm text-gray-600">
+                Don't have an account?{" "}
+                <Link href="/register" className="text-orange-600 hover:text-orange-700 font-medium">
+                  Sign up
                 </Link>
               </p>
             </div>
